@@ -89,6 +89,8 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
                     if real_image_path in [path for path, _ in self.train_dataset.imgs]:
                         filtered_image_paths.append(image_path)
 
+                if not filtered_image_paths:
+                    raise ValueError("The filtered_image_paths is empty. Please check the dataset path and class labels.")
                 diff_filtered_dataset = datasets.ImageFolder(os.path.dirname(filtered_image_paths[0]), self.transform)
                 diff_filtered_dataset.imgs = [(path, label) for path, label in zip(filtered_image_paths, self.train_dataset.targets)]
                 diff_filtered_dataset.samples = diff_filtered_dataset.imgs
