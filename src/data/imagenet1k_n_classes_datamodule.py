@@ -51,7 +51,7 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
 
-    def _filter_dataset(self, dataset):
+    def _filter_dataset(self, dataset, root_dir):
         filtered_image_paths = []
         filtered_labels = []
 
@@ -61,7 +61,7 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
                 filtered_image_paths.append(image_path)
                 filtered_labels.append(label)
 
-        filtered_dataset = datasets.ImageFolder(os.path.dirname(filtered_image_paths[0]), self.transform)
+        filtered_dataset = datasets.ImageFolder(root_dir, self.transform)
         filtered_dataset.imgs = [(path, label) for path, label in zip(filtered_image_paths, filtered_labels)]
         filtered_dataset.samples = filtered_dataset.imgs
 
@@ -71,14 +71,14 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
         train_real_path = os.path.join(self.data_dir, self.train_real_folder)
         if stage == 'fit' or stage is None:
             if self.data_option == 'diff':
-                train_path = os.path.join(self.data_dir, 'train_diff')  #/data/ImageNet1K/ILSVRC/Data/CLS-LOC/train_diff
+                train_path = os.path.join(self.data_dir, 'train_diff')
             elif self.data_option == 'real':
-                train_path = train_real_path   #/data/ImageNet1K/ILSVRC/Data/CLS-LOC/300_train
+                train_path = train_real_path
             else:
                 raise ValueError(f"Invalid data_option: {self.data_option}")
 
             full_train_dataset = datasets.ImageFolder(train_real_path, self.transform)
-            self.train_dataset = self._filter_dataset(full_train_dataset)
+            self.train_dataset = self._filter_dataset(full_train_dataset, train_real_path)
 
             if self.data_option == 'diff':
                 diff_train_dataset = datasets.ImageFolder(train_path, self.transform)
@@ -95,11 +95,11 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
                 self.train_dataset = diff_filtered_dataset
 
             full_val_dataset = datasets.ImageFolder(os.path.join(self.data_dir, 'val'), self.transform)
-            self.val_dataset = self._filter_dataset(full_val_dataset)
+            self.val_dataset = self._filter_dataset(full_val_dataset, os.path.join(self.data_dir, 'val'))
 
         if stage == 'test' or stage is None:
             full_test_dataset = datasets.ImageFolder(os.path.join(self.data_dir, 'test'), self.transform)
-            self.test_dataset = self._filter_dataset(full_test_dataset)
+            self.test_dataset = self._filter_dataset(full_test_dataset, os.path.join(self.datadir, 'test'))
 
     def train_dataloader(self):
         return DataLoader(self.train_dataset, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=True, pin_memory=self.pin_memory)
