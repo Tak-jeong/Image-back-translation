@@ -6,7 +6,7 @@ pin_memory : False
 data_option : "diff"
 train_real_folder: "300_train"
 selected_classes:
-  - 'n02084071' #Maltese dog
+  - 'n02085936' #Maltese dog
   - 'n02134084' #polar bear
   - 'n04536866' #violin
   - 'n07745940' #strawberry
