@@ -7,10 +7,10 @@ wandb:
   offline: False
   id: null # pass correct id to resume experiment!
   anonymous: null # enable anonymous logging
-  project: "resnet_diff_300"
+  project: "300_per_class_random"
   log_model: False # upload lightning ckpts
   prefix: "" # a string to put at the beginning of metric keys
   # entity: "" # set to name of your wandb team
-  group: "diff"
-  tags: []
+  group: "real"
+  tags: [resnet18d]
   job_type: ""
