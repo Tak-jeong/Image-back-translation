@@ -1,0 +1,21 @@
+_target_: src.models.torchvision_lit_module.TorchvisionLitModule
+
+num_classes: 10
+
+net:
+  _target_: src.models.components.vgg.VGG
+  model_name: "vgg16"
+  pretrained: false
+  num_classes: ${model.num_classes}
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true
+  lr: 0.001
+  weight_decay: 0.0
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.StepLR
+  _partial_: true
+  step_size: 10
+  gamma: 0.1
