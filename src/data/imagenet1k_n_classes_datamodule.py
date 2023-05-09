@@ -115,7 +115,10 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
                 diff_filtered_dataset.targets = self.train_dataset.targets
                 diff_filtered_dataset.class_to_idx = self.train_dataset.class_to_idx
                 diff_filtered_dataset.classes = self.train_dataset.classes
-                self.train_dataset = diff_filtered_dataset
+                if self.data_option == 'concat':
+                    self.train_dataset = ConcatDataset([self.train_dataset, diff_filtered_dataset])
+                else:
+                    self.train_dataset = diff_filtered_dataset
 
             full_val_dataset = datasets.ImageFolder(os.path.join(self.data_dir, 'val_formatted'), self.transform)
             self.val_dataset = self._filter_dataset(full_val_dataset)
