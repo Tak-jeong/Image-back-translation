@@ -5,7 +5,7 @@
 defaults:
   - _self_
   - data: ImageNet1k.yaml
-  - model: resnet18.yaml
+  - model: resnet.yaml
   - callbacks: default.yaml
   - logger: wandb.yaml # set logger here or use command line (e.g. `python train.py logger=tensorboard`)
   - trainer: gpu.yaml

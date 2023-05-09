@@ -3,7 +3,7 @@ data_dir: "/home/tak/IBT/Image-back-translation/data/ImageNet1K/ILSVRC/Data/CLS-
 batch_size: 32
 num_workers: 4
 pin_memory : False
-data_option : "real"
+data_option : "diff"
 train_real_folder: "300_train"
 debug: False
 selected_classes:
