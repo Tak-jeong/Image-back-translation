@@ -11,6 +11,7 @@ wandb:
   log_model: False # upload lightning ckpts
   prefix: "" # a string to put at the beginning of metric keys
   # entity: "" # set to name of your wandb team
-  group: "real"
-  tags: [resnet18d]
+  group: "${data.data_option}"
+  tags:
+    - "${model.net.model_name}"
   job_type: ""
