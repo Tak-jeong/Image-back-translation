@@ -84,8 +84,6 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
                 train_path = os.path.join(self.data_dir, 'train_diff')
             elif self.data_option == 'real':
                 train_path = train_real_path
-            else:
-                raise ValueError(f"Invalid data_option: {self.data_option}")
 
             full_train_dataset = datasets.ImageFolder(train_real_path, self.transform)
             self.train_dataset = self._filter_dataset(full_train_dataset)
