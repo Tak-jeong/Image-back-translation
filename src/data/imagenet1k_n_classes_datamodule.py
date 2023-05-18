@@ -80,7 +80,7 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
         train_real_path = os.path.join(self.data_dir, self.train_real_folder)
 
         if stage == 'fit' or stage is None:
-            if self.data_option == 'diff':
+            if self.data_option == 'diff' or self.data_option == 'concat':
                 train_path = os.path.join(self.data_dir, 'train_diff')
             elif self.data_option == 'real':
                 train_path = train_real_path
@@ -88,7 +88,7 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
             full_train_dataset = datasets.ImageFolder(train_real_path, self.transform)
             self.train_dataset = self._filter_dataset(full_train_dataset)
 
-            if self.data_option == 'diff':
+            if self.data_option == 'diff' or self.data_option == 'concat':
                 diff_train_dataset = datasets.ImageFolder(train_path, self.transform)
                 filtered_image_paths = []
 
@@ -113,6 +113,7 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
                 diff_filtered_dataset.targets = self.train_dataset.targets
                 diff_filtered_dataset.class_to_idx = self.train_dataset.class_to_idx
                 diff_filtered_dataset.classes = self.train_dataset.classes
+                
                 if self.data_option == 'concat':
                     self.train_dataset = ConcatDataset([self.train_dataset, diff_filtered_dataset])
                 else:
@@ -124,6 +125,7 @@ class ImageNet1K_N_ClassesDataModule(LightningDataModule):
             if self.debug:
                 self.train_dataset = torch.utils.data.Subset(self.train_dataset, range(0, len(self.train_dataset), 100))
                 self.val_dataset = torch.utils.data.Subset(self.val_dataset, range(0, len(self.val_dataset), 100))
+
 
         if stage == 'test' or stage is None:
             full_test_dataset = datasets.ImageFolder(os.path.join(self.data_dir, 'test'), self.transform)
