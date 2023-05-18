@@ -3,8 +3,8 @@ _target_: src.models.torchvision_lit_module.TorchvisionLitModule
 num_classes: 10
 
 net:
-  _target_: src.models.components.efficientnet.EfficientNet
-  model_name: "efficientnet_b0"
+  _target_: src.models.components.regnet.RegNet
+  model_name: "regnet_y_400mf"
   pretrained: false
   num_classes: ${model.num_classes}
 
