@@ -1,10 +1,10 @@
 _target_: src.data.imagenet1k_n_classes_datamodule.ImageNet1K_N_ClassesDataModule
 data_dir: "/home/tak/IBT/Image-back-translation/data/ImageNet1K/ILSVRC/Data/CLS-LOC"
-batch_size: 32
+batch_size: 64
 num_workers: 4
 pin_memory : False
-data_option : "diff"
-train_real_folder: "300_train"
+data_option : "concat"
+train_real_folder: "train"
 debug: False
 selected_classes:
   - 'n02085936' #Maltese dog
