@@ -1,0 +1,28 @@
+_target_: src.data.mixaug_datamodule.MixAugDataModule
+
+# Data paths
+root_path: "/data1/ImageNet1K/Annotations/Data/CLS-LOC"
+train_dir: "train_1000"
+val_dir: "val_1000"
+
+# Mixup parameters
+mixup_args:
+  mixup_alpha: 0.0
+  cutmix_alpha: 0.0
+  cutmix_minmax: null
+  prob: 0.0
+  switch_prob: 0.0
+  mode: "batch"
+  label_smoothing: 0
+  num_classes: ${model.num_classes}
+
+# Augmentation paths and probabilities
+mixaug_args:
+  cmia_dir: "train_cmia"
+  cmia_prob: 0.0
+  btia_dir: "train_1000_IBT"
+  btia_prob: 0.0
+  aug_num: 1
+
+# DataLoader options
+batch_size: 64

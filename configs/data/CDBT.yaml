@@ -1,0 +1,18 @@
+_target_: src.data.CMIA.ImageNet1K_N_ClassesDataModule
+data_dir: "/data1/ImageNet1K/Annotations/Data/CLS-LOC"
+batch_size: 64
+num_workers: 4
+pin_memory : False
+train_real_folder: "train"
+debug: False
+selected_classes:
+  - 'n02085936' #Maltese dog
+  - 'n02134084' #polar bear
+  - 'n04536866' #violin
+  - 'n07745940' #strawberry
+  - 'n04552348' #warplane
+  - 'n04548280' #wall clock
+  - 'n07734744' #mushroom
+  - 'n02783161' #ballpoint pen
+  - 'n02676566' #acoustic guitar
+  - 'n01910747' #jellyfish

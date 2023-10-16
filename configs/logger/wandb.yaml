@@ -7,11 +7,16 @@ wandb:
   offline: False
   id: null # pass correct id to resume experiment!
   anonymous: null # enable anonymous logging
-  project: "full_class"
+  project: "mixaug_mc_1000"
   log_model: False # upload lightning ckpts
   prefix: "" # a string to put at the beginning of metric keys
   # entity: "" # set to name of your wandb team
-  group: "${data.data_option}"
+  group: "${model.net.model_name}"
   tags:
-    - "${model.net.model_name}"
+    - "CutMixUp_prob:${data.mixup_args.prob}"
+    - "CutMix_alpha:${data.mixup_args.cutmix_alpha}"
+    - "MixUp_alpha:${data.mixup_args.mixup_alpha}"
+    - "CMIA:${data.mixaug_args.cmia_prob}"
+    - "BTIA:${data.mixaug_args.btia_prob}"
+    - "Aug_num:${data.mixaug_args.aug_num}"
   job_type: ""

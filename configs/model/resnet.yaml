@@ -1,4 +1,4 @@
-_target_: src.models.torchvision_lit_module.TorchvisionLitModule
+_target_: src.models.mixaug_lit_module.MixAugLitModule
 
 num_classes: 10
 

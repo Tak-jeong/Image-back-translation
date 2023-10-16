@@ -1,0 +1,15 @@
+# config.yaml
+defaults:
+  - model: resnet50
+  - trainer: basic
+trainer:
+  gpus: 1
+  max_epochs: 100
+model:
+  lr: 0.01
+  batch_size: 32
+dataset:
+  name: COCODataset
+  image_size: [256, 256]
+  use_randaugment: False
+  synthetic_probability: 0.5
