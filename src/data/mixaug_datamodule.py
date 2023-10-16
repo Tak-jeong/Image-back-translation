@@ -13,13 +13,15 @@ from torchvision import datasets, transforms
 from torchvision.datasets.folder import default_loader
 
 class MixAugDataModule(LightningDataModule):
-    def __init__(self, root_path: str, train_dir: str,val_dir: str, mixup_args: Dict, mixaug_args: Dict, batch_size: int = 64):
+    def __init__(self, root_path: str, train_dir: str,val_dir: str, mixup_args: Dict, mixaug_args: Dict, batch_size: int = 64, sampling_ratio=1):
         super().__init__()
         self.root_path = root_path
         self.train_dir = os.path.join(self.root_path, train_dir)
 
         self.val_dir = os.path.join(self.root_path, val_dir)
         # self.test_dir = os.path.join(self.root_path, 'test')
+        
+        self.sampling_ratio = sampling_ratio
 
         self.mixup_args = mixup_args
         self.mixaug_args = mixaug_args
@@ -64,7 +66,7 @@ class MixAugDataModule(LightningDataModule):
     def setup(self, stage=None):
         # Split the dataset into train, val, and test sets
         # Create instances of the CustomDataset for each split
-        self.train_dataset = MixAugDataset(root=self.train_dir, cmia_path=self.cmia_dir, btia_path=self.btia_dir,mixup_args=self.mixup_args, transform = self.train_transform, cmia_prob=self.cmia_prob, btia_prob=self.btia_prob, aug_num=self.aug_num)
+        self.train_dataset = MixAugDataset(root=self.train_dir, cmia_path=self.cmia_dir, btia_path=self.btia_dir,mixup_args=self.mixup_args, transform = self.train_transform, cmia_prob=self.cmia_prob, btia_prob=self.btia_prob, aug_num=self.aug_num, sampling_ratio=self.sampling_ratio)
         self.val_dataset = datasets.ImageFolder(self.val_dir, self.val_transform)
         # self.test_dataset = datasets.ImageFolder(self.test_dir, self.val_transform)
 

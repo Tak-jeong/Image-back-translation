@@ -17,7 +17,7 @@ model_checkpoint:
 early_stopping:
   # monitor: "val/acc"
   monitor: "val/acc_top1"
-  patience: 100
+  patience: 20
   mode: "max"
 
 model_summary:

@@ -1,9 +1,9 @@
 _target_: src.data.mixaug_datamodule.MixAugDataModule
 
 # Data paths
-root_path: "/data1/ImageNet1K/Annotations/Data/CLS-LOC"
-train_dir: "train_1000"
-val_dir: "val_1000"
+root_path: "/mnt/nas65/Dataset/ImageNet1K/ILSVRC/Data/CLS-LOC/"
+train_dir: "train"
+val_dir: "val_formatted"
 
 # Mixup parameters
 mixup_args:
@@ -20,9 +20,10 @@ mixup_args:
 mixaug_args:
   cmia_dir: "train_cmia"
   cmia_prob: 0.0
-  btia_dir: "train_1000_IBT"
+  btia_dir: "train_diff"
   btia_prob: 0.0
   aug_num: 1
 
 # DataLoader options
 batch_size: 64
+sampling_ratio: 1.0

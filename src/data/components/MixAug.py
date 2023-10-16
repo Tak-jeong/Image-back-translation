@@ -16,9 +16,11 @@ from . import CutMixUp
 from torchvision import datasets, transforms
 from torchvision.datasets.folder import default_loader
 
+from collections import defaultdict
+
 
 class MixAugDataset(datasets.ImageFolder):
-    def __init__(self, root: str, cmia_path: str, btia_path: str,  mixup_args: Dict, cmia_prob=0.0, btia_prob=0.0, aug_num=1, **kwargs):
+    def __init__(self, root: str, cmia_path: str, btia_path: str,  mixup_args: Dict, cmia_prob=0.0, btia_prob=0.0, aug_num=1, sampling_ratio=1, **kwargs):
         super().__init__(root, **kwargs)
         self.cmia_path = Path(cmia_path)
         self.cmia_prob = cmia_prob
@@ -43,7 +45,23 @@ class MixAugDataset(datasets.ImageFolder):
         print(f"Using cmia_prob: {self.cmia_prob}\n")
         print(f"Using btia_prob: {self.btia_prob}\n")
         print(f"Using mixup_args: {self.mixup_args}\n")
+        print(f"Using aug_num: {self.aug_num}\n")
+        print(f"Using sampling_ratio: {sampling_ratio}\n")
         print("=====================================================")
+
+        # Organize samples by class
+        samples_by_class = defaultdict(list)
+        for path, target in self.samples:
+            samples_by_class[target].append((path, target))
+        
+        # Select the first 10% from each class
+        new_samples = []
+        for target, samples in samples_by_class.items():
+            samples.sort()  # Sort samples
+            num_samples = int(len(samples) * sampling_ratio)
+            new_samples.extend(samples[:num_samples])  # Select first 10%
+        
+        self.samples = new_samples
 
 
     def __getitem__(self, index):

@@ -11,11 +11,12 @@ net:
 optimizer:
   _target_: torch.optim.Adam
   _partial_: true
-  lr: 0.01
+  lr: 0.1
   weight_decay: 0.0
 
 scheduler:
-  _target_: torch.optim.lr_scheduler.StepLR
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
   _partial_: true
-  step_size: 30
-  gamma: 0.2
+  mode: "max"
+  factor: 0.1
+  patience: 10
