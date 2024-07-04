@@ -23,3 +23,4 @@ rich            # beautiful text formatting in terminal
 pytest          # tests
 sh              # for running bash commands in some tests (linux/macos only)
 xmltodict       # for parsing xml files
+timm            # for using pretrained models
