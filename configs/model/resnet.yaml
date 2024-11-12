@@ -1,17 +1,15 @@
-_target_: src.models.mixaug_lit_module.MixAugLitModule
-
-num_classes: 10
+_target_: src.models.capmix_lit_module.CapMixLitModule
 
 net:
   _target_: src.models.components.resnet.ResNet
   model_name: "resnet50"
-  pretrained: false
+  pretrained: False
   num_classes: ${model.num_classes}
 
 optimizer:
   _target_: torch.optim.Adam
   _partial_: true
-  lr: 0.1
+  lr: 0.001
   weight_decay: 0.0
 
 scheduler:
@@ -20,3 +18,5 @@ scheduler:
   mode: "max"
   factor: 0.1
   patience: 10
+
+num_classes: 10

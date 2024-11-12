@@ -1,0 +1,9 @@
+_target_: src.data.capmix_datamodule.CapMixDataModule
+# Data paths
+root_path: "/mnt/nas65/Dataset/ImageNet1K/ILSVRC/Data/CLS-LOC/images/"
+train_folder: TE_10
+aug_folder: "TE_refine_algined_cls-mixture"
+caption_folder: "TE_json_aligned"
+use_caption_ratio: False
+batch_size: 64
+num_workers: 4

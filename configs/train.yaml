@@ -4,7 +4,7 @@
 # order of defaults determines the order in which configs override each other
 defaults:
   - _self_
-  - data: mixaug.yaml
+  - data: capmix.yaml
   - model: resnet.yaml
   - callbacks: default.yaml
   - logger: wandb.yaml # set logger here or use command line (e.g. `python train.py logger=tensorboard`)
